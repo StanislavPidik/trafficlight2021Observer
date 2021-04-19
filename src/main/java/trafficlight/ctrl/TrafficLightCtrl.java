@@ -20,13 +20,22 @@ public class TrafficLightCtrl extends Subject {
 
     private boolean doRun = true;
 
-    public TrafficLightCtrl() {
+    private static TrafficLightCtrl ctrlInstance = null;
+
+    private TrafficLightCtrl() {
         super();
         initStates();
         gui = new TrafficLightGui(this);
         gui.setVisible(true);
         //TODO useful to update the current state
         notifyObservers(currentState);
+    }
+
+    public static TrafficLightCtrl getInstance() {
+        if (ctrlInstance == null) {
+            ctrlInstance = new TrafficLightCtrl();
+        }
+        return ctrlInstance;
     }
 
     private void initStates() {
